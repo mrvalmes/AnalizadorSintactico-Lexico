@@ -19,6 +19,13 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java_cup.runtime.Symbol;
 import javax.swing.JFileChooser;
+import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.ArrayList;
+import javax.swing.JTextArea;
+import javax.swing.text.DefaultCaret;
+
 
 /**
  *
@@ -56,6 +63,9 @@ public class FrmPrincipal extends javax.swing.JFrame {
         txtReSintactico = new javax.swing.JTextArea();
         jLabel4 = new javax.swing.JLabel();
         btnArchivo = new javax.swing.JButton();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        txtSemantic = new javax.swing.JTextArea();
+        jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -92,6 +102,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         txtEntrada.setRows(5);
         jScrollPane2.setViewportView(txtEntrada);
 
+        txtReSintactico.setEditable(false);
         txtReSintactico.setColumns(20);
         txtReSintactico.setRows(5);
         jScrollPane3.setViewportView(txtReSintactico);
@@ -107,6 +118,14 @@ public class FrmPrincipal extends javax.swing.JFrame {
             }
         });
 
+        txtSemantic.setColumns(20);
+        txtSemantic.setRows(5);
+        txtSemantic.setEnabled(false);
+        jScrollPane4.setViewportView(txtSemantic);
+
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel5.setText("Analisis Semantico:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -114,28 +133,35 @@ public class FrmPrincipal extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane3)
                             .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addContainerGap()
+                                        .addComponent(jScrollPane3))
+                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 346, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel1)
+                                    .addComponent(btnArchivo))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
+                            .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
                                 .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnLimpiar))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(jLabel3))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 346, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1)
-                            .addComponent(btnArchivo))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnEjecutar))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 356, Short.MAX_VALUE))))
+                                .addComponent(btnEjecutar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnLimpiar))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 361, Short.MAX_VALUE)
+                            .addComponent(jScrollPane4)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addGap(0, 0, Short.MAX_VALUE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabel3)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -149,19 +175,24 @@ public class FrmPrincipal extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
                             .addComponent(jLabel1)))
-                    .addComponent(btnEjecutar, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnEjecutar)
+                        .addComponent(btnLimpiar)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
                     .addComponent(jScrollPane1))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnLimpiar, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGap(30, 30, 30)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel5))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane4)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel3))
+                .addComponent(jLabel3)
+                .addContainerGap())
         );
 
         pack();
@@ -257,56 +288,99 @@ public class FrmPrincipal extends javax.swing.JFrame {
                     break;
             }
         }
-    }
-    private void btnEjecutarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEjecutarActionPerformed
-        try {
-            analizadorSintactico();
-        } catch (Exception ex) {
-            Logger.getLogger(FrmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+    }    
+    //Analisis semantico
+    private void realizarAnalisisSemantico(Map<String, String> tablaSimbolos, List<String> instrucciones, JTextArea txtSemantic) {
+        StringBuilder erroresSemanticos = new StringBuilder();
+
+        for (String instruccion : instrucciones) {
+            instruccion = instruccion.trim();
+
+            // Ignorar llaves de apertura y cierre
+            if (instruccion.equals("{") || instruccion.equals("}")) {
+                continue; // Saltar a la siguiente instrucción si es una llave
+            }
+
+            System.out.println("Procesando instrucción: " + instruccion); // Debug para ver la instrucción
+            if (instruccion.startsWith("int ")) { // Ejemplo para tipo de declaración, ajusta según el formato de tus instrucciones
+                verificarDeclaracion(instruccion, tablaSimbolos, erroresSemanticos);
+            } else if (instruccion.contains("=")) { // Ejemplo para asignación
+                verificarAsignacion(instruccion, tablaSimbolos, erroresSemanticos);
+            } else {
+                verificarUso(instruccion, tablaSimbolos, erroresSemanticos);
+            }
         }
-        try {
-            // TODO add your handling code here:            
-            analizadorLexico();
-            
-            /*File archivo = new File("archivo.txt");
-            PrintWriter escribir;
-            try {
-            escribir = new PrintWriter(archivo);
-            escribir.print(txtEntrada.getText());
-            escribir.close();
-            } catch (FileNotFoundException ex) {
-            Logger.getLogger(FrmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            
-            try {
-            Reader lector = new BufferedReader(new FileReader("archivo.txt"));
-            Lexer lexer = new Lexer(lector);
-            String resultado = "";
-            while (true) {
-            Tokens tokens = lexer.yylex();
-            if (tokens == null) {
-            txtResultado.setText(resultado);
+
+        // Mostrar los errores en el JTextArea
+        if (erroresSemanticos.length() > 0) {
+            txtSemantic.setText(erroresSemanticos.toString());
+        } else {
+            txtSemantic.setText("Análisis semántico completado sin errores.");
+        }
+    }
+
+    // Métodos de verificación modificados
+    private void verificarDeclaracion(String instruccion, Map<String, String> tablaSimbolos, StringBuilder erroresSemanticos) {
+        String[] partes = instruccion.split(" ");
+        if (partes.length < 2) {
+            erroresSemanticos.append("Error de sintaxis en declaración: ").append(instruccion).append("\n");
             return;
+        }
+        String nombreVariable = partes[1].replace(";", "").trim();
+
+        if (tablaSimbolos.containsKey(nombreVariable)) {
+            erroresSemanticos.append("Error: La variable '").append(nombreVariable).append("' ya está declarada.\n");
+        } else {
+            tablaSimbolos.put(nombreVariable, "int"); // Suponiendo tipo int, ajusta según tu lógica
+        }
+    }
+
+    private void verificarUso(String instruccion, Map<String, String> tablaSimbolos, StringBuilder erroresSemanticos) {
+        String nombreVariable = instruccion.replace(";", "").trim();
+
+        if (!tablaSimbolos.containsKey(nombreVariable)) {
+            erroresSemanticos.append("Error: La variable '").append(nombreVariable).append("' no está declarada.\n");
+        }
+    }
+
+    private void verificarAsignacion(String instruccion, Map<String, String> tablaSimbolos, StringBuilder erroresSemanticos) {
+        String[] partes = instruccion.split("=");
+        if (partes.length < 2) {
+            erroresSemanticos.append("Error de sintaxis en asignación: ").append(instruccion).append("\n");
+            return;
+        }
+
+        String nombreVariable = partes[0].trim();
+        if (!tablaSimbolos.containsKey(nombreVariable)) {
+            erroresSemanticos.append("Error: La variable '").append(nombreVariable).append("' no está declarada antes de asignarse.\n");
+        }
+    }
+
+    private void extraerInstrucciones(List<String> instrucciones) {
+        String[] lineas = txtEntrada.getText().split("\n");
+        instrucciones.clear();
+        for (String linea : lineas) {
+            if (!linea.trim().isEmpty()) { // Omitir líneas vacías
+                instrucciones.add(linea.trim());
+                System.out.println("Extrajo Instrucción: " + linea.trim());
             }
-            switch (tokens) {
-            case ERROR:
-            resultado += "Simbolo no definido\n";
-            break;
-            case Identificador: case Numero: case Reservadas:
-            resultado += lexer.lexeme + ": Es un " + tokens + "\n";
-            break;
-            default:
-            resultado += "Token: " + tokens + "\n";
-            break;
-            }
-            }
-            } catch (FileNotFoundException ex) {
-            Logger.getLogger(FrmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (IOException ex) {
-            Logger.getLogger(FrmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-            }*/
-        } catch (IOException ex) {
-            Logger.getLogger(FrmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    private void btnEjecutarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEjecutarActionPerformed
+       try {
+            analizadorLexico();
+            analizadorSintactico();            
+            // Inicializa tabla de símbolos e instrucciones para el análisis semántico
+            Map<String, String> tablaSimbolos = new HashMap<>();
+            List<String> instrucciones = new ArrayList<>();
+            // Extrae las instrucciones desde el análisis léxico y sintáctico
+            extraerInstrucciones(instrucciones);            
+            // Realiza el análisis semántico
+            realizarAnalisisSemantico(tablaSimbolos, instrucciones, txtSemantic);            
+            
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
     }//GEN-LAST:event_btnEjecutarActionPerformed
 
@@ -314,6 +388,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
         //txtResultado.setText("");
         txtReSintactico.setText("");
+        txtSemantic.setText("");
         
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
@@ -381,11 +456,14 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTextArea txtEntrada;
     private javax.swing.JTextArea txtReSintactico;
     private javax.swing.JTextArea txtResultado;
+    private javax.swing.JTextArea txtSemantic;
     // End of variables declaration//GEN-END:variables
 }
